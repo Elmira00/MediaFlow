@@ -1,9 +1,11 @@
 ﻿using MediaFlow.Core.Abstract;
+using System.ComponentModel.DataAnnotations;
 
 namespace MediaFlow.Entities.Models
 {
     public class ScheduledPost : IEntity
     {
+        [Key]
         public int ScheduledPostId { get; set; }
         public int PostId { get; set; }
         public DateTime ScheduledDateTime { get; set; }

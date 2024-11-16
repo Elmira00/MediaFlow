@@ -1,9 +1,11 @@
 ﻿using MediaFlow.Core.Abstract;
+using System.ComponentModel.DataAnnotations;
 
 namespace MediaFlow.Entities.Models
 {
     public class ContentPost : IEntity
     {
+        [Key]
         public int PostId { get; set; }
         public int UserId { get; set; }
         public int PlatformId { get; set; }

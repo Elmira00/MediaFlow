@@ -1,9 +1,11 @@
 ﻿using MediaFlow.Core.Abstract;
+using System.ComponentModel.DataAnnotations;
 
 namespace MediaFlow.Entities.Models
 {
     public class Analytics : IEntity
     {
+        [Key]
         public int AnalyticsId { get; set; }
         public int PostId { get; set; }  // Foreign Key to ContentPost
         public int PlatformId { get; set; }  // Foreign Key to SocialMediaPlatform
