@@ -4,10 +4,10 @@ namespace MediaFlow.Business.Abstract
 {
     public interface IAnalyticsService
     {
-        Task<List<Analytics>> GetAll();
-        Task Add(Analytics analytics);
-        Task Update(Analytics analytics);
-        Task Delete(int id);
-        Task<Analytics> GetById(int id);
+        Task<IEnumerable<Analytics>> GetAllAsync();
+        Task<Analytics?> GetByIdAsync(int id);
+        Task<Analytics> AddAsync(Analytics analytics);
+        Task<Analytics?> UpdateAsync(Analytics analytics);
+        Task<bool> DeleteAsync(int id);
     }
 }

@@ -1,13 +1,13 @@
 ﻿using MediaFlow.Entities.Models;
 
-namespace MediaFlow.Business.Abstract
+namespace MediaFlow.Core.Abstract
 {
     public interface IContentPostService
     {
-        Task<List<ContentPost>> GetAll();
-        Task Add(ContentPost contentPost);
-        Task Update(ContentPost contentPost);
-        Task Delete(int id);
-        Task<ContentPost> GetById(int id);
+        Task<IEnumerable<ContentPost>> GetAllContentPostsAsync();
+        Task<ContentPost> GetContentPostByIdAsync(int id);
+        Task<ContentPost> CreateContentPostAsync(ContentPost contentPost);
+        Task<bool> UpdateContentPostAsync(ContentPost contentPost);
+        Task<bool> DeleteContentPostAsync(int id);
     }
 }

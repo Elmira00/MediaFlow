@@ -1,8 +1,11 @@
 using MediaFlow.Business.Abstract;
 using MediaFlow.Business.Concrete;
+using MediaFlow.Core.Abstract;
+using MediaFlow.Core.Concrete;
 using MediaFlow.DataAccess;
 using MediaFlow.DataAccess.Abstract;
 using MediaFlow.DataAccess.Concrete;
+using MediaFlow.WebServerSide.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,6 +59,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+
 
 app.UseAuthorization();
 

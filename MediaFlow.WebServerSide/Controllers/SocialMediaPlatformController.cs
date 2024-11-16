@@ -1,4 +1,6 @@
 ﻿using MediaFlow.Entities.Models;
+using MediaFlow.WebServerSide.Dtos;
+using MediaFlow.WebServerSide.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaFlow.WebServerSide.Controllers

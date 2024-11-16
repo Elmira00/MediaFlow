@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediaFlow.Business\MediaFlow.Business.csproj" />
+    <ProjectReference Include="..\MediaFlow.Core\MediaFlow.Core.csproj" />
     <ProjectReference Include="..\MediaFlow.DataAccess\MediaFlow.DataAccess.csproj" />
     <ProjectReference Include="..\MediaFlow.Entities\MediaFlow.Entities.csproj" />
   </ItemGroup>
