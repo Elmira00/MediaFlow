@@ -2,17 +2,24 @@
 using MediaFlow.DataAccess.Abstract;
 using MediaFlow.Entities.DTOs;
 using MediaFlow.Entities.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace MediaFlow.Business.Concrete
 {
     public class UserService : IUserService
     {
         private readonly IUserDal _userDal;
+        private readonly IConfiguration _configuration;
 
-        public UserService(IUserDal userDal)
+        public UserService(IUserDal userDal, IConfiguration configuration)
         {
             _userDal = userDal;
+            _configuration = configuration;
         }
 
         public async Task<bool> Register(RegisterDto registerDto)
@@ -42,7 +49,10 @@ namespace MediaFlow.Business.Concrete
             if (user == null || !VerifyPasswordHash(loginDto.Password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            return "Login successful";
+            // Generate JWT Token after successful login
+            var token = GenerateJwtToken(user);
+
+            return token;
         }
 
         public async Task<bool> ChangePassword(int userId, string oldPassword, string newPassword)
@@ -83,5 +93,27 @@ namespace MediaFlow.Business.Concrete
             }
         }
 
+        // Generate JWT token
+        private string GenerateJwtToken(User user)
+        {
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
+                // Add more claims as needed
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(1), // Set expiration time
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

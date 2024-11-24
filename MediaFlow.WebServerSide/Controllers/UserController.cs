@@ -1,5 +1,6 @@
 ﻿using MediaFlow.Business.Abstract;
 using MediaFlow.Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaFlow.WebServerSide.Controllers
@@ -31,6 +32,13 @@ namespace MediaFlow.WebServerSide.Controllers
             if (token == null) return Unauthorized("Invalid username or password.");
 
             return Ok(token);
+        }
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult GetProfile()
+        {
+            // Logic to fetch and return the user profile
+            return Ok("User profile data.");
         }
 
         [HttpPut("change-password")]
